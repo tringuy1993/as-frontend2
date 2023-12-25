@@ -9,11 +9,11 @@ export interface User extends Omit<UserInfo, "providerId"> {
 }
 
 export interface AuthContextValue {
-  user: User | null;
+  tenant: User | null;
 }
 
 export const AuthContext = createContext<AuthContextValue>({
-  user: null,
+  tenant: null,
 });
 
 export const useAuth = () => useContext(AuthContext);

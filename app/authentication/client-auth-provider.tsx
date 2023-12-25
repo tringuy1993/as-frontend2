@@ -1,23 +1,15 @@
 "use client";
-import {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  useRef,
-  startTransition,
-} from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   IdTokenResult,
   signOut,
   User as FirebaseUser,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { useFirebaseAuth } from "./firebase2";
-import { clientConfig } from "@/config/firebase-client-config";
 import { AuthContext, User } from "./context";
+import { Auth } from "./firebase1";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -66,91 +58,35 @@ const mapFirebaseResponseToTenant = (
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const { getFirebaseAuth } = useFirebaseAuth(clientConfig);
-  //   const [user, setUser] = useState(null);
-  const firstLoadRef = useRef(true);
+  // const firstLoadRef = useRef(true);
   const [tenant, setTenant] = useState<Tenant>();
-  const [errMsg, setErrMsg] = useState("");
-  const [authLoading, setAuthLoading] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
   const router = useRouter();
-
-  const handleSignIn = async (e) => {
-    const auth = await getFirebaseAuth();
-    setAuthLoading(true);
-    await signInWithEmailAndPassword(auth, e.username, e.password)
-      .then(() => {
-        // setAuthLoading(false);
-        router.push("/");
-      })
-      .catch((error) => {
-        setErrMsg(error.code);
-        // setAuthLoading(false);
-      })
-      .finally(() => setAuthLoading(false));
-  };
-
   const handleSignOut = async (): Promise<void> => {
-    const auth = await getFirebaseAuth();
-    signOut(auth);
+    // const auth = await getFirebaseAuth();
+    signOut(Auth);
     console.log("LogOut");
     router.refresh();
   };
-
   const handleAuthStateChanged = async (firebaseUser: FirebaseUser | null) => {
-    if (firebaseUser && tenant && firebaseUser.uid === tenant.id) {
-      firstLoadRef.current = false;
-      return;
-    }
-
-    if (!firebaseUser) {
-      firstLoadRef.current = false;
-      startTransition(() => {
-        setTenant(null);
-      });
-    }
-
-    firstLoadRef.current = false;
-
-    const tokenResult = await firebaseUser?.getIdTokenResult();
-
-    startTransition(() => {
+    if (firebaseUser) {
+      const tokenResult = await firebaseUser?.getIdTokenResult();
       setTenant(mapFirebaseResponseToTenant(tokenResult, firebaseUser));
-    });
-  };
-
-  const registerChangeListener = async () => {
-    const auth = await getFirebaseAuth();
-    const { onIdTokenChanged } = await import("firebase/auth");
-    return onIdTokenChanged(auth, handleAuthStateChanged);
+    } else {
+      setTenant(null);
+    }
+    setIsAuthLoading(false);
   };
 
   useEffect(() => {
-    const unsubscribePromise = registerChangeListener();
-    return () => {
-      unsubscribePromise.then((unsubscribe) => unsubscribe());
-    };
+    const unsubscribe = onAuthStateChanged(Auth, handleAuthStateChanged);
+    return unsubscribe;
   }, []);
-  //   useEffect(() => {
-  //     const unsubscribe = onAuthStateChanged(FBAuth, async (currentUser) => {
-  //       setUser(currentUser);
-  //       setPending(false);
-  //     });
 
-  //     return unsubscribe;
-  //   });
-
-  // Define a function to refresh the id_token
-  // const refreshIdToken = async () => {
-  //   return await FBAuth.currentUser?.getIdToken(true);
-  // };
-  console.log(tenant);
   const contextData = {
     tenant: tenant,
-    handleSignIn: handleSignIn,
     handleSignOut: handleSignOut,
-    errMsg: errMsg,
-    authLoading: authLoading,
-    // refreshIdToken: refreshIdToken,
+    isAuthLoading: isAuthLoading,
   };
 
   return (

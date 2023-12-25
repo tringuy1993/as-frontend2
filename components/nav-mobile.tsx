@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
 import { ScrollArea } from "./ui/scroll-area";
+import { NavMenus } from "./nav-menus";
 
 export function NavMobile() {
   const [open, setOpen] = React.useState(false);
@@ -60,8 +61,10 @@ export function NavMobile() {
           <Icons.logo className="mr-2 h-4 w-4" />
           <span className="font-bold"> {siteConfig.name}</span>
         </MobileLink>
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
-          <div className="flex flex-col space-y-3"></div>
+        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10">
+          <div className="flex flex-col space-y-3">
+            <NavMenus />
+          </div>
         </ScrollArea>
       </SheetContent>
     </Sheet>

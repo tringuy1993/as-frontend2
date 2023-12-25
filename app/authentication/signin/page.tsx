@@ -2,7 +2,7 @@ import Link from "next/link";
 // import { LoginForm } from "@/components/forms";
 // import { SocialButtons } from "@/components/common";
 import type { Metadata } from "next";
-import { FormLogin } from "@/components/form-login";
+import { FormLogin } from "@/components/forms/form-login";
 
 export const metadata: Metadata = {
   title: "Full Auth | Login",
