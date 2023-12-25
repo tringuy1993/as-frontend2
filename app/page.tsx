@@ -1,5 +1,3 @@
-import Nav from "@/components/Navbar";
-import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
