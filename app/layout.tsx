@@ -46,9 +46,9 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               <div vaul-drawer-wrapper="">
-                <div className="relative flex min-h-screen flex-col bg-background">
+                <div className="flex-col bg-background">
                   <SiteHeader />
-                  <main className="flex-1">{children}</main>
+                  <main className="items-center">{children}</main>
                 </div>
               </div>
             </ThemeProvider>
