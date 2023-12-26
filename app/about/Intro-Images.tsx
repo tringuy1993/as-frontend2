@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 
 import Image from "next/image";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 type data = {
   image: string;
@@ -52,97 +51,27 @@ const ImageData = [
 ];
 
 export function IntroImages() {
-  const slides = ImageData.map((img) => (
-    <CarouselItem key={img.image}>
-      <div className="">
-        <Card>
-          <CardContent className="flex aspect-square items-center justify-center p-6">
-            <span className="text-4xl font-semifold">
-              <Image
-                fill={true}
-                src={img.image}
-                alt={img.title}
-                priority={img.priority}
-                style={{ objectFit: "cover" }}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            </span>
-          </CardContent>
-        </Card>
-      </div>
-    </CarouselItem>
-  ));
   return (
-    <Carousel className="w-full max-w-xs">
+    <Carousel className="w-4/5">
       <CarouselContent>
         {ImageData.map((image, index) => (
           <CarouselItem key={index}>
-            <div>{image.image}</div>
-            <div className="p-1">
+            <div className="p-1 relative">
               <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span></span>
-                  <Image
-                    src={image.image}
-                    alt={image.image}
-                    layout="fill" // Adjust layout as needed
-                    objectFit="cover" // Adjust object fit as needed
-                  />
+                <CardContent className=" flex  items-center justify-center p-1">
+                  <AspectRatio ratio={650 / 450} className="bg-muted">
+                    <Image
+                      src={image.image}
+                      alt={image.image}
+                      fill
+                      className="rounded-lg object-cover"
+                    />
+                  </AspectRatio>
                 </CardContent>
               </Card>
             </div>
           </CarouselItem>
         ))}
-        {/* {ImageData.map((data, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <Image
-                    fill={true}
-                    src={data.image}
-                    alt={data.title}
-                    priority={data.priority}
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        ))} */}
-        {/* <CarouselItem key={1}>
-          <div className="p-1">
-            <Card>
-              <CardContent className="flex aspect-square items-center justify-center p-6">
-                <Image
-                  fill={true}
-                  src={ImageData[0].image}
-                  alt={ImageData[0].title}
-                  priority={ImageData[0].priority}
-                  style={{ objectFit: "cover" }}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </CardContent>
-            </Card>
-          </div>
-        </CarouselItem>
-        <CarouselItem key={2}>
-          <div className="p-1">
-            <Card>
-              <CardContent className="flex aspect-square items-center justify-center p-6">
-                <Image
-                  fill={true}
-                  src={ImageData[1].image}
-                  alt={ImageData[1].title}
-                  priority={ImageData[1].priority}
-                  style={{ objectFit: "cover" }}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </CardContent>
-            </Card>
-          </div>
-        </CarouselItem> */}
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />

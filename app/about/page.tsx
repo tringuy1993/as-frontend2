@@ -1,18 +1,20 @@
 import { PageDevJourney } from "./DevJourney";
 import { PageIntro } from "./Intro";
+import { PageProjectAS } from "./ProjectAS";
 
 export default function AboutPage() {
   return (
-    <main className="h-20 items-center mt-20 mr-10 ml-10 xl:mr-64 xl:ml-64">
-      <header>
-        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-          FullStack Developer
-        </h1>
-      </header>
+    <main className="h-20 items-center mt-20 mx-10 xl:mx-64">
+      <header></header>
 
       <section>
         <PageIntro></PageIntro>
         <PageDevJourney />
+        <br></br>
+        <br />
+        <PageProjectAS />
+        <br />
+        <br />
       </section>
     </main>
   );
