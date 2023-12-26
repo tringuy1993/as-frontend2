@@ -1,6 +1,4 @@
 "use client";
-// import { IntroImages } from "./Intro-Images";
-import styles from "./styles.module.css";
 
 export function PageProjectAS() {
   return (

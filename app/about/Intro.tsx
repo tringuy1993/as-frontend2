@@ -3,13 +3,10 @@ import { IntroImages } from "./Intro-Images";
 
 export function PageIntro() {
   return (
-    <div className="flex flex-col custom-screen:flex-row mb-10">
+    <div className="flex flex-col screen-1200px:flex-row mb-10">
       <div className="flex-1 flex items-center md:mb-0">
         <div className="mx-4 space-y-5">
-          <h1
-            className="text-75px font-extrabold tracking-tight mb-10"
-            // style={{ fontSize: "75px" }}
-          >
+          <h1 className="text-75px font-extrabold tracking-tight mb-10">
             FullStack Developer
           </h1>
           <h2 className="text-35px scroll-m-20 border-b pb-2 font-semibold tracking-tight first:mt-0">
