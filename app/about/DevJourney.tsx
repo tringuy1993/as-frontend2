@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 export function PageDevJourney() {
   return (
     <>
-      <div className="relative flex items-center">
+      <div className="relative flex items-center mb-10">
         <div className="flex-grow border-t border-gray-400"></div>
         <span className="mx-2 text-35px font-semibold tracking-tight px-2">
           My Dev Journey
