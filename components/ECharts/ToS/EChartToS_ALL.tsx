@@ -63,9 +63,7 @@ export default function EChartToSALL({ params }) {
 
   let chartDataList;
   if (data && !isLoading && !isError) {
-    console.log(data, isLoading, isError);
     chartDataList = getChartDataList(data.data, []);
-    console.log(chartDataList);
   }
 
   return (

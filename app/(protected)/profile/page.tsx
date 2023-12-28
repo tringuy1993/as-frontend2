@@ -2,13 +2,15 @@
 
 import { Auth, upload } from "@/app/authentication/firebase1";
 import { useEffect, useState } from "react";
-// import { Auth} from "./firebase";
+import Image from "next/image";
+import { useAuth } from "@/app/authentication/context";
 
 export default function Profile() {
+  const { tenant, isAuthLoading } = useAuth();
   const currentUser = Auth.currentUser;
   const [photo, setPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [photoURL, setPhotoURL] = useState(currentUser?.photoURL);
+  const [photoURL, setPhotoURL] = useState(tenant?.photoURL);
 
   function handleChange(e) {
     if (e.target.files[0]) {
@@ -20,10 +22,10 @@ export default function Profile() {
   }
 
   useEffect(() => {
-    if (currentUser?.photoURL) {
-      setPhotoURL(currentUser.photoURL);
+    if (tenant?.photoUrl) {
+      setPhotoURL(tenant?.photoUrl);
     }
-  }, [currentUser]);
+  }, [tenant]);
 
   return (
     <div className="fields">
@@ -31,7 +33,15 @@ export default function Profile() {
       <button disabled={loading || !photo} onClick={handleClick}>
         Upload
       </button>
-      <img src={photoURL} alt="Avatar" className="avatar" />
+      {tenant && !isAuthLoading && (
+        <Image
+          src={photoURL}
+          alt="Avatar Image"
+          width={500}
+          height={500}
+          className="avatar"
+        />
+      )}
     </div>
   );
 }

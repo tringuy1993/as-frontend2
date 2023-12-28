@@ -1,7 +1,6 @@
 import { GetAllModifiedToSData, GetModifiedToSData } from "./DataEChart";
 
 export function modify_data(data, greek) {
-  console.log(data);
   const modified_data = data?.map((data) => GetModifiedToSData(data, greek));
   // Need index in data
   for (let i = 0; i < modified_data?.length; i++) {
