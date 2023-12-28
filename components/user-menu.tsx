@@ -15,10 +15,13 @@ import { useEffect } from "react";
 
 export function UserMenu() {
   const { tenant, isAuthLoading, handleSignOut } = useAuth();
-  useEffect(() => {}, [tenant?.photoURL]);
+  // useEffect(() => {}, [tenant?.photoURL]);
+
+  // const photoURL = localStorage.getItem("tenant")?.idToken || tenant?.photoUrl;
+  const photoURL = tenant?.photoUrl;
   return (
     <>
-      {isAuthLoading ? null : !tenant ? (
+      {isAuthLoading && !tenant ? (
         <Link href="/authentication/signin" passHref>
           <Button>SignIn</Button>
         </Link>
@@ -26,7 +29,7 @@ export function UserMenu() {
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar>
-              <AvatarImage src={tenant?.photoUrl} alt="@shadcn" />
+              <AvatarImage src={photoURL} alt="@userAvatar" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>

@@ -4,6 +4,9 @@ import { Auth, upload } from "@/app/authentication/firebase1";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAuth } from "@/app/authentication/context";
+import { Card } from "@/components/ui/card";
+import { AccountForm } from "@/components/forms/form-account";
+import UserUpdate from "@/components/user-update";
 
 export default function Profile() {
   const { tenant, isAuthLoading } = useAuth();
@@ -42,6 +45,10 @@ export default function Profile() {
           className="avatar"
         />
       )}
+      {/* <UserUpdate inputs={userInputs} title={"Update User"} /> */}
+      <Card>
+        <UserUpdate />
+      </Card>
     </div>
   );
 }

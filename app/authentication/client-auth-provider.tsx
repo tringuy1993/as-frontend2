@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { AuthContext, User } from "./context";
+import { AuthContext } from "./context";
 import { Auth } from "./firebase1";
 
 interface AuthProviderProps {
@@ -62,15 +62,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const router = useRouter();
   const handleSignOut = async (): Promise<void> => {
-    // const auth = await getFirebaseAuth();
     signOut(Auth);
+    localStorage.removeItem("tenant");
     console.log("LogOut");
     router.refresh();
   };
   const handleAuthStateChanged = async (firebaseUser: FirebaseUser | null) => {
     if (firebaseUser) {
       const tokenResult = await firebaseUser?.getIdTokenResult();
-      setTenant(mapFirebaseResponseToTenant(tokenResult, firebaseUser));
+      const tenant = mapFirebaseResponseToTenant(tokenResult, firebaseUser);
+      setTenant(tenant);
+      localStorage.setItem("tenant", JSON.stringify(tenant));
     } else {
       setTenant(null);
     }

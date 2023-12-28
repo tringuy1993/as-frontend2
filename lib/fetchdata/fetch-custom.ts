@@ -12,7 +12,6 @@ const axiosFetcher = async (url, params = {}) => {
   //getIdToken() to ensure that the token is always updated.
   const token = await Auth.currentUser?.getIdToken();
   try {
-    console.log(token);
     const response = await axiosInstance.get(url, {
       params,
       headers: token ? { Authorization: `Bearer ${token}` } : {},

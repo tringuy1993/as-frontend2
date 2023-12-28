@@ -53,7 +53,6 @@ export function FormLogin() {
   };
 
   function onSubmit(values: z.infer<typeof formLoginFields>) {
-    console.log(values);
     form.resetField("password");
     handleSignIn(values);
   }
