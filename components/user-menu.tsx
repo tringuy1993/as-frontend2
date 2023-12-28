@@ -1,3 +1,4 @@
+"use client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,13 +15,7 @@ import { useEffect } from "react";
 
 export function UserMenu() {
   const { tenant, isAuthLoading, handleSignOut } = useAuth();
-  // console.log(tenant, isAuthLoading);
-  // useEffect(() => {
-  //   const checkAuthentication = async () => {
-  //     await new Promise((resolve) => setTimeout(resolve, 50));
-  //   };
-  //   checkAuthentication();
-  // }, [tenant]);
+  useEffect(() => {}, [tenant?.photoURL]);
   return (
     <>
       {isAuthLoading ? null : !tenant ? (
@@ -31,14 +26,16 @@ export function UserMenu() {
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarImage src={tenant?.photoUrl} alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <Link href="/profile" passHref>
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => handleSignOut()}>
               SignOut
