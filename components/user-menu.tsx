@@ -17,11 +17,12 @@ export function UserMenu() {
   const { tenant, isAuthLoading, handleSignOut } = useAuth();
   // useEffect(() => {}, [tenant?.photoURL]);
 
-  // const photoURL = localStorage.getItem("tenant")?.idToken || tenant?.photoUrl;
-  const photoURL = tenant?.photoUrl;
+  // const photoURL = localStorage.getItem("tenant")?.idToken || tenant?.photoURL;
+  // console.log(isAuthLoading, tenant);
+  const photoURL = tenant?.photoURL;
   return (
     <>
-      {isAuthLoading && !tenant ? (
+      {!isAuthLoading && !tenant ? (
         <Link href="/authentication/signin" passHref>
           <Button>SignIn</Button>
         </Link>

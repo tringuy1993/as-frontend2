@@ -7,22 +7,11 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "./context";
+import { AuthContext, Tenant } from "./context";
 import { Auth } from "./firebase1";
 
 interface AuthProviderProps {
   children: React.ReactNode;
-}
-
-export interface Tenant {
-  id: string;
-  name: string | null;
-  email: string | null;
-  photoUrl: string | null;
-  emailVerified: boolean;
-  isAnonymous: boolean;
-  // customClaims: CustomClaims;
-  idToken: string;
 }
 
 const mapFirebaseResponseToTenant = (
@@ -37,7 +26,7 @@ const mapFirebaseResponseToTenant = (
       name: providerData.displayName || user.displayName || user.email || null,
       email: providerData.email || null,
       emailVerified: user.emailVerified || false,
-      photoUrl: providerData.photoURL || null,
+      photoURL: providerData.photoURL || null,
       //   customClaims: {},
       isAnonymous: user.isAnonymous,
       idToken: result.token,
@@ -49,7 +38,7 @@ const mapFirebaseResponseToTenant = (
     name: user.displayName || providerData?.displayName || user.email || null,
     email: user.email || null,
     emailVerified: user.emailVerified || false,
-    photoUrl: user.photoURL || null,
+    photoURL: user.photoURL || null,
     // customClaims: {},
     isAnonymous: user.isAnonymous,
     idToken: result.token,

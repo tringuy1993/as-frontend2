@@ -5,22 +5,13 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Auth } from "@/app/authentication/firebase1";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FormUserMaster } from "./form-user-master";
 
 const formLoginFields = z.object({
   email: z.string().email({
@@ -28,6 +19,23 @@ const formLoginFields = z.object({
   }),
   password: z.string().min(2),
 });
+
+const loginINFO = [
+  {
+    name: "email",
+    label: "Email",
+    placeHolder: "email@gmail.com",
+    description: null,
+    inputType: null,
+  },
+  {
+    name: "password",
+    label: "Password",
+    placeHolder: "Your password",
+    description: null,
+    inputType: "password",
+  },
+];
 
 export function FormLogin() {
   // ...
@@ -56,43 +64,18 @@ export function FormLogin() {
     form.resetField("password");
     handleSignIn(values);
   }
+
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username/Email</FormLabel>
-              <FormControl>
-                <Input placeholder="email" {...field} />
-              </FormControl>
-              {errMsg && (
-                <FormMessage className="text-right">{errMsg}</FormMessage>
-              )}
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="password" {...field} />
-              </FormControl>
-              <FormDescription className="text-right">
-                <Link href="/authentication/reset-password" passHref>
-                  Forgot Password?{" "}
-                </Link>
-              </FormDescription>
-            </FormItem>
-          )}
-        />
-        <Button type="submit">SignIn</Button>
-      </form>
-    </Form>
+    <>
+      <FormUserMaster
+        formArrayFields={loginINFO}
+        onSubmit={onSubmit}
+        form={form}
+        submitButtonName={"Login"}
+      >
+        <Button type="submit">Sign In</Button>
+      </FormUserMaster>
+      <div className="mt-10 text-center text-sm text-gray-500"> {errMsg} </div>
+    </>
   );
 }

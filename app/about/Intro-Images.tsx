@@ -32,21 +32,21 @@ const ImageData = [
     title: "Hawaii, US",
     category: "Nature",
     link: "https://wailuaheritagetrail.org/",
-    priority: false,
+    priority: true,
   },
   {
     image: "/static/images/Me3.jpg",
     title: "Houston, US",
     category: "Nature",
     link: "https://spacecenter.org/",
-    priority: false,
+    priority: true,
   },
   {
     image: "/static/images/Me4.jpg",
     title: "Alaska, US",
     category: "Nature",
     link: "https://goo.gl/maps/a8qpZHfNtGJgpyGo9",
-    priority: false,
+    priority: true,
   },
 ];
 

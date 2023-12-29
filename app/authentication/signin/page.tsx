@@ -25,12 +25,10 @@ export default function PageSignIn() {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <FormLogin />
-        {/* <SocialButtons /> */}
-
         <p className="mt-10 text-center text-sm text-gray-500">
           Don&apos;t have an account?{" "}
           <Link
-            href="/auth/register"
+            href="/authentication/register"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Register here

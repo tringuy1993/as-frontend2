@@ -19,9 +19,9 @@ export const Auth = getAuth(app);
 
 export const db = getFirestore(app);
 
-const storage = getStorage();
+export const storage = getStorage();
 
-export default { storage, app };
+export default app;
 
 export async function upload(file, currentUser, setLoading) {
   const fileRef = ref(storage, currentUser.uid + ".png");

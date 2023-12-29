@@ -24,7 +24,7 @@ function getIconStyle(activeSection: string, activeSections: string[]) {
 
 export default function Sidebar({ activeSection }) {
   return (
-    <div className="hover:scale-150 translate-x-4 transition-transform fixed left-20 top-1/2 transform -translate-y-1/2 space-y-8 screen-1200px:block hidden">
+    <div className="hover:scale-150 translate-x-4 transition-transform fixed left-20 top-1/2 transform -translate-y-1/2 space-y-8 about-1400px:block hidden">
       <SiPython
         style={getIconStyle(activeSection, ["devjourney", "projectas"])}
       />
