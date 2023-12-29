@@ -8,10 +8,11 @@ import Image from "next/image";
 import { useAuth } from "@/app/authentication/context";
 import { Button } from "./ui/button";
 import { Progress } from "./ui/progress";
+import { updateProfile } from "firebase/auth";
 
 export function UserAvatarFile() {
   const [file, setFile] = useState(null);
-  const { tenant } = useAuth();
+  const { currentUser, tenant } = useAuth();
   const [loading, setLoading] = useState(false);
   const [photoURL, setphotoURL] = useState<
     string | null | ArrayBuffer | undefined
@@ -64,7 +65,7 @@ export function UserAvatarFile() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // Update the user's photoURL in your database or authentication system
+          updateProfile(currentUser, { photoURL: downloadURL });
           setLoading(false);
         });
       },

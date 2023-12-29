@@ -47,6 +47,7 @@ const mapFirebaseResponseToTenant = (
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   // const firstLoadRef = useRef(true);
+  const [currentUser, setCurrentUser] = useState();
   const [tenant, setTenant] = useState<Tenant>();
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const router = useRouter();
@@ -58,11 +59,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
   const handleAuthStateChanged = async (firebaseUser: FirebaseUser | null) => {
     if (firebaseUser) {
+      setCurrentUser(firebaseUser);
       const tokenResult = await firebaseUser?.getIdTokenResult();
       const tenant = mapFirebaseResponseToTenant(tokenResult, firebaseUser);
       setTenant(tenant);
       localStorage.setItem("tenant", JSON.stringify(tenant));
     } else {
+      setCurrentUser(firebaseUser);
       setTenant(null);
     }
     setIsAuthLoading(false);
@@ -74,6 +77,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const contextData = {
+    currentUser: currentUser,
     tenant: tenant,
     handleSignOut: handleSignOut,
     isAuthLoading: isAuthLoading,
