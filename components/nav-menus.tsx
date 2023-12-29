@@ -14,7 +14,7 @@ import Link from "next/link";
 const components: { title: string; href: string }[] = [
   {
     title: "Home",
-    href: "/",
+    href: "/options",
   },
   {
     title: "Greek Time",
