@@ -15,7 +15,6 @@ export function modify_data(data, greek) {
 }
 
 export function modify_time_data(data, greek) {
-  console.log(data[0]);
   if (data[0].hasOwnProperty("c_notion_expo")) {
     // Need index in data
 
