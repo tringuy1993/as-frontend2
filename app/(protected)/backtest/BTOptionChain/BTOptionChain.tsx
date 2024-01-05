@@ -2,12 +2,13 @@ import MainLoading from "@/app/loading";
 import { BACKTEST_OPT_CHAIN } from "@/lib/fetchdata/apiURLs";
 import useCustomSWR from "@/lib/fetchdata/fetch-custom";
 import { DataTable } from "./btOptionChainDataTable";
-import { columns } from "./btOptionChainColumns";
+
 import { useMemo } from "react";
+import { useOptionChainColumns } from "./btColumnsHook";
 
 export default function BTOptionChain({ params }) {
   const { data, isLoading } = useCustomSWR(BACKTEST_OPT_CHAIN, params);
-
+  const columns = useOptionChainColumns();
   const mergedData = useMemo(() => {
     if (!data) {
       return [];

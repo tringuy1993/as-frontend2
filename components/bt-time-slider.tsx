@@ -78,7 +78,7 @@ export function BTTimeSlider({ className, ...props }: SliderProps) {
   };
 
   return (
-    <div className="mx-auto my-4 relative" ref={sliderRef}>
+    <div className="my-4 relative" ref={sliderRef}>
       <Slider
         defaultValue={[0]}
         min={0}
@@ -95,7 +95,9 @@ export function BTTimeSlider({ className, ...props }: SliderProps) {
           </div>
         ))}
       </div>
-      <div>Current Time: {timeRange[currentTimeValue]}</div>
+      <div className="text-center text-xl font-extrabold">
+        Current Time: {timeRange[currentTimeValue]}
+      </div>
     </div>
   );
 }

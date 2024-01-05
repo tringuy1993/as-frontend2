@@ -1,13 +1,7 @@
-// import { Box, Button, Stack } from "@mantine/core";
-import { useEffect, useMemo, useState } from "react";
-
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  getExpandedRowModel,
-  getGroupedRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -15,6 +9,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -30,70 +25,80 @@ type StateData = {
   expiration: string;
   strike: number;
 };
-export const OrderEntry = () => {
-  const { legs, legsPriceSum, setOrder } = useBTSelectedLegsStore();
-  const [data, setData] = useState(legs);
 
-  useEffect(() => {
-    setData(legs);
-  }, [legs]);
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+}
 
-  const color = legsPriceSum >= 0 ? "green" : "red";
-  const columns = useMemo<ColumnDef<StateData>[]>(
-    () => [
-      {
-        accessorKey: "quote_datetime",
-        header: "Trade Time",
-      },
-      {
-        accessorKey: "expiration",
-        header: "Exp",
-      },
-      {
-        accessorKey: "strike", //normal accessorKey
-        header: "Strike",
-      },
-      {
-        accessorFn: (row) => {
-          return row.option_type === true ? "call" : "put";
-        },
-        header: "Option Type",
-      },
-      {
-        accessorKey: "price",
-        header: "Price",
-        footer: () => (
-          //   <Stack>
-          //     <Box style={{ color: color }}>Total: {legsPriceSum.toFixed(2)}</Box>
-
-          //   </Stack>
-          <div>
-            <Button onClick={setOrder}>Submit Order</Button>
-          </div>
-        ),
-      },
-    ],
-    [legsPriceSum],
-  );
-
+export function BTOrderTable<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
   const table = useReactTable({
+    data,
     columns,
-    data, //must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
-    enablePagination: false,
-    enableStickyHeader: true,
-    enableGlobalFilter: false,
-    enableColumnActions: false,
-    enableColumnFilters: false,
-    enableSorting: false,
-    enableTopToolbar: false,
-    mantineTableContainerProps: { sx: { minHeight: "200px" } },
-    enableTableFooter: true,
+    getCoreRowModel: getCoreRowModel(),
   });
 
   return (
-    <div>
-      <h1> Enter Order </h1>
-      <Data table={table} />
-    </div>
+    <Table>
+      <TableHeader>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <TableRow key={headerGroup.id}>
+            {headerGroup.headers.map((header) => {
+              return (
+                <TableHead key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                </TableHead>
+              );
+            })}
+          </TableRow>
+        ))}
+      </TableHeader>
+      <TableBody>
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row) => (
+            <TableRow
+              key={row.id}
+              data-state={row.getIsSelected() && "selected"}
+            >
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell colSpan={columns.length} className="h-24 text-center">
+              No results.
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+      <TableFooter>
+        {table.getFooterGroups().map((footerGroup) => (
+          <TableRow key={footerGroup.id}>
+            {footerGroup.headers.map((header) => (
+              <TableCell key={header.id}>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(
+                      header.column.columnDef.footer,
+                      header.getContext(),
+                    )}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableFooter>
+    </Table>
   );
-};
+}

@@ -92,14 +92,6 @@ export function DataTable<TData, TValue>({
                   >
                     {header.isPlaceholder ? null : (
                       <>
-                        {/* {header.column.id === "call_expiration" && (
-                          <button
-                            onClick={header.column.getToggleGroupingHandler()}
-                            style={{ cursor: "pointer" }}
-                          >
-                            {header.column.getIsGrouped() ? "🛑 " : "👊 "}
-                          </button>
-                        )} */}
                         {flexRender(
                           header.column.columnDef.header,
                           header.getContext(),
@@ -150,13 +142,7 @@ export function DataTable<TData, TValue>({
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell
-                    key={cell.id}
-                    className="text-center"
-                    onClick={(e) => {
-                      console.log(e);
-                    }}
-                  >
+                  <TableCell key={cell.id} className="text-center">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
