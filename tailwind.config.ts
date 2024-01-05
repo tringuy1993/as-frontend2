@@ -20,7 +20,7 @@ const config = {
     extend: {
       screens: {
         "screen-1200px": "1100px",
-        "about-1400px": "1400px",
+        "screen-1400px": "1400px",
       },
       fontSize: {
         "35px": "35px",
