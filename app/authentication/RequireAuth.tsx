@@ -17,5 +17,5 @@ export default function RequireAuth({ children }: Props) {
       redirect("/authentication/signin");
     }
   }, [tenant, isAuthLoading]);
-  return <>{children}</>;
+  return <>{tenant && !isAuthLoading && children}</>;
 }

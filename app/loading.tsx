@@ -1,15 +1,22 @@
 "use client";
-import { grid } from "ldrs";
 import { useTheme } from "next-themes";
-
-grid.register();
+import { useEffect, useState } from "react";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 export default function MainLoading() {
-  const theme = useTheme();
-  const loadingColor = theme.theme === "light" ? "black" : "white";
+  const { theme, resolvedTheme } = useTheme();
+  const [loadingColor, setLoadingColor] = useState(""); // Start with an empty string
+
+  useEffect(() => {
+    // Once the component has mounted, we can use the resolvedTheme
+    const color = resolvedTheme === "light" ? "black" : "white";
+    setLoadingColor(color);
+  }, [resolvedTheme]);
+
   return (
     <div className="flex justify-center items-center h-screen">
-      <l-grid size="60" speed="1.5" color={loadingColor}></l-grid>
+      {/* Render the loader with the updated color once the client has mounted */}
+      <PacmanLoader color={loadingColor || "#ffffff"} />
     </div>
   );
 }
