@@ -24,6 +24,7 @@ const components: { title: string; href: string }[] = [
     title: "Back Test",
     href: "/backtest",
   },
+  { title: "Live 0DTE", href: "/live0dte" },
   {
     title: "Music",
     href: "/music",

@@ -10,7 +10,6 @@ interface Props {
 
 export default function RequireAuth({ children }: Props) {
   const { tenant, isAuthLoading } = useAuth();
-  // console.log("REquireAuth:", tenant);
 
   useEffect(() => {
     if (!isAuthLoading && !tenant) {

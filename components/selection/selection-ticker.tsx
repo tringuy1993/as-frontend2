@@ -19,11 +19,12 @@ interface SelectProps {
 }
 
 export function SelectTicker({ value = "$SPX.X", onUpdate }: SelectProps) {
+  // console.log(value);
   return (
     <CustomSelect
       items={TICKERMENU}
       value={value.toUpperCase()}
-      onUpdate={onUpdate}
+      onUpdate={(e) => onUpdate(e.toUpperCase())}
     />
   );
 }

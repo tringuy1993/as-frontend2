@@ -45,7 +45,7 @@ export default function RootLayout({
             <div vaul-drawer-wrapper="">
               <div className="flex-col bg-background">
                 <SiteHeader />
-                <main className="items-center">{children}</main>
+                <main className="items-center mt-5">{children}</main>
               </div>
             </div>
           </ThemeProvider>
