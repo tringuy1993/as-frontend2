@@ -61,7 +61,7 @@ export const BTOrderMonitor = () => {
 
   const params = {
     trade_date: format(BackTestDate.from, "yyyy-MM-dd"),
-    expiration: format(BackTestDate.to, "yyyy-MM-dd"),
+    expiration: format(BackTestDate.to as Date, "yyyy-MM-dd"),
     trade_time: BackTestTime,
     option_legs: JSON.stringify(order.legs),
   };
@@ -74,7 +74,6 @@ export const BTOrderMonitor = () => {
     if (data && data?.data) {
       const newResult = processResultData(data.data, order);
       setResult(newResult);
-      console.log("New REsult:", newResult);
       const newPNL = calculatePNL(newResult, order);
       setPNL(newPNL);
     }

@@ -53,7 +53,7 @@ export function FormLogin() {
   const handleSignIn = async (e) => {
     await signInWithEmailAndPassword(Auth, e.email, e.password)
       .then(() => {
-        router.push("/");
+        router.push("/options");
       })
       .catch((error) => {
         setErrMsg(error.code);

@@ -63,8 +63,6 @@ export default function EChartToS({ symbol, data, theoData, greek }) {
   }
 
   return (
-    // <Card className="mx-2 screen-1200px:mx-28">
-    // <div className="flex flex-col screen-1200px:flex-row"></div>
     <Card className="flex flex-col mx-2.5 screen-1200px:flex-row screen-1200px:mx-28">
       <div className="flex-1">
         <EChartThemed option={{ ...ecOptions }} style={{ height: "650px" }} />

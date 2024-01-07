@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Input } from "../ui/input";
 
 interface DateInputProps {
   value?: Date;
@@ -200,7 +201,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
 
   return (
     <div className="flex border rounded-lg items-center text-sm px-1">
-      <input
+      <Input
         type="text"
         ref={monthRef}
         max={12}
@@ -218,7 +219,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
         placeholder="M"
       />
       <span className="opacity-20 -mx-px">/</span>
-      <input
+      <Input
         type="text"
         ref={dayRef}
         max={31}
@@ -236,7 +237,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
         placeholder="D"
       />
       <span className="opacity-20 -mx-px">/</span>
-      <input
+      <Input
         type="text"
         ref={yearRef}
         max={9999}

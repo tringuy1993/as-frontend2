@@ -22,17 +22,21 @@ export function getNextDate({
   targetDayName = "Friday",
 }: NextDateParams) {
   const dateCopy = new Date(currentDate.getTime());
+  dateCopy.setHours(0, 0, 0, 0); // Normalize the time part of currentDate to midnight
+
   const dayNumber = DATEMAP.find((element) => element.date === targetDayName)
     ?.dateNumber;
-  if (dateCopy.getDay() === dayNumber) {
-    dateCopy.setHours(0, 0, 0, 0);
-    return dateCopy;
-  } else {
-    const daysUntilTarget = (7 - dateCopy.getDay() + dayNumber) % 7 || 7;
-    const nextDate = new Date(
-      dateCopy.setDate(dateCopy.getDate() + daysUntilTarget),
-    );
-    nextDate.setHours(0, 0, 0, 0);
-    return nextDate;
-  }
+
+  // Calculate days until the target day
+  let daysUntilTarget = (7 - dateCopy.getDay() + dayNumber) % 7;
+
+  // If it's 0 (same day), set to 7
+  daysUntilTarget = daysUntilTarget === 0 ? 7 : daysUntilTarget;
+
+  const nextDate = new Date(
+    dateCopy.setDate(dateCopy.getDate() + daysUntilTarget),
+  );
+  nextDate.setHours(0, 0, 0, 0);
+
+  return nextDate;
 }
