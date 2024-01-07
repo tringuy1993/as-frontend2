@@ -425,14 +425,6 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                   fromYear={2015}
                   toYear={2025}
                   defaultMonth={range.from}
-
-                  // defaultMonth={
-                  //   new Date(
-                  //     new Date().setMonth(
-                  //       new Date().getMonth() + (isSmallScreen ? 0 : 0),
-                  //     ),
-                  //   )
-                  // }
                 />
               </div>
             </div>
@@ -458,11 +450,12 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
               setIsOpen(false);
               resetValues();
             }}
-            variant="ghost"
+            variant="outline"
           >
             Cancel
           </Button>
           <Button
+            variant="default"
             onClick={() => {
               setIsOpen(false);
               if (!areRangesEqual(range, openedRangeRef.current)) {

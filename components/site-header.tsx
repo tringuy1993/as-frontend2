@@ -1,4 +1,3 @@
-// "use client";
 import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
@@ -6,9 +5,9 @@ import * as React from "react";
 import { ModeToggle } from "./ui/theme-toggle";
 import { Icons } from "./icons";
 import { NavMobile } from "./nav-mobile";
-import { NavMain } from "./nav-main";
 
 import { UserMenu } from "./user-menu";
+import { NavMain } from "./nav-main";
 
 export function SiteHeader() {
   return (
