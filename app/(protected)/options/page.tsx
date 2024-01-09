@@ -15,7 +15,7 @@ export function formatDate(dateobj: Date): string {
 }
 
 export default function PageOptions() {
-  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+  const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: new Date(),
     to: getNextDate({ targetDayName: "Saturday" }),
   });

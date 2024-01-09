@@ -7,8 +7,8 @@ export const ToS_Theo_Chart = ({ params }) => {
   const TheoCharts = tickers.map((ticker) => {
     const newParams = { ...params, und_symbol: ticker };
     return (
-      <Card>
-        <EChartToS_Theo_Comp key={ticker} params={newParams} />
+      <Card key={ticker}>
+        <EChartToS_Theo_Comp params={newParams} />
       </Card>
     );
   });

@@ -10,7 +10,7 @@ const nextConfig = {
         port: "",
         pathname: "/v0/b/**",
       },
-      { protocol: "https", hostname: "icon-libary.com" },
+      { protocol: "https", hostname: "icon-library.com" },
     ],
   },
 };

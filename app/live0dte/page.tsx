@@ -27,9 +27,9 @@ function isLatestDateEqualToToday(dateList) {
 
   // Compare and return the appropriate date
   if (latestDate === today && isAfterTwoThirty) {
-    return today;
+    return { is0DTE: true, date: today };
   } else {
-    return latestDate;
+    return { is0DTE: false, date: latestDate };
   }
 }
 export default function PageLive0DTE() {
@@ -47,7 +47,7 @@ export default function PageLive0DTE() {
   useEffect(() => {
     if (uDateData && !isLoading) {
       const selectedDate = isLatestDateEqualToToday(uDateData.data);
-      setUDate(selectedDate);
+      setUDate(selectedDate.date);
     }
   }, [uDateData]);
 
@@ -59,8 +59,8 @@ export default function PageLive0DTE() {
     label: item.saved_date,
     value: item.saved_date,
   }));
+  const chartParams = { und_symbol: uTicker, date: uDate };
 
-  const params = { und_symbol: uTicker, date: uDate };
   return (
     <div className="flex flex-col items-center justify-center">
       <header>
@@ -74,7 +74,7 @@ export default function PageLive0DTE() {
       </header>
 
       <Card className="w-full mx-10">
-        <EChart0DTE params={params} />
+        <EChart0DTE params={chartParams} />
       </Card>
     </div>
   );
