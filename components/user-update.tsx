@@ -23,8 +23,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { FormUserMaster } from "./forms/form-user-master";
 import { UUID } from "crypto";
+import { FormUserMaster } from "./forms/form-user-master";
 
 const languages = [
   { label: "English", value: "en" },
@@ -87,19 +87,15 @@ const fetchUserData = async (tenantId: UUID) => {
     const docRef = doc(db, "users", tenantId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      // console.log("Document data:", docSnap.data());
       return docSnap.data();
-    } else {
-      console.log("No such document!");
     }
   } catch (error) {
-    console.error("Error fetching document: ", error);
+    // console.error("Error fetching document: ", error);
+    return error;
   }
 };
 
 export function UserUpdate() {
-  // console.log(defaultValues);
-
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues,
@@ -145,74 +141,70 @@ export function UserUpdate() {
   });
 
   return (
-    <>
-      <FormUserMaster
-        formArrayFields={accountINFO}
-        form={form}
-        onSubmit={handleSubmit}
-        submitButtonName="Update Account"
-        // className="space-y-4" // Add spacing between elements
-      >
-        <div className="flex flex-col space-y-4">
-          <FormLabel>Language</FormLabel>
-          <Popover>
-            <PopoverTrigger asChild>
-              <FormControl>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  className={`w-48 justify-between ${
-                    !form.watch("language") ? "text-gray-400" : ""
-                  }`} // Updated class names for width and text color
-                >
-                  {form.watch("language")
-                    ? languages.find(
-                        (lang) => lang.value === form.watch("language"),
-                      )?.label
-                    : "Select language"}
-                  <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </FormControl>
-            </PopoverTrigger>
-            <PopoverContent className="w-48 p-0">
-              <Command>
-                <CommandInput placeholder="Search language..." />
-                <CommandEmpty>No language found.</CommandEmpty>
-                <CommandGroup>
-                  {languages.map((language) => (
-                    <CommandItem
-                      value={language.label}
+    <FormUserMaster
+      formArrayFields={accountINFO}
+      form={form}
+      onSubmit={handleSubmit}
+      submitButtonName="Update Account"
+      // className="space-y-4" // Add spacing between elements
+    >
+      <div className="flex flex-col space-y-4">
+        <FormLabel>Language</FormLabel>
+        <Popover>
+          <PopoverTrigger asChild>
+            <FormControl>
+              <Button
+                variant="outline"
+                role="combobox"
+                className={`w-48 justify-between ${
+                  !form.watch("language") ? "text-gray-400" : ""
+                }`} // Updated class names for width and text color
+              >
+                {form.watch("language")
+                  ? languages.find(
+                      (lang) => lang.value === form.watch("language"),
+                    )?.label
+                  : "Select language"}
+                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </FormControl>
+          </PopoverTrigger>
+          <PopoverContent className="w-48 p-0">
+            <Command>
+              <CommandInput placeholder="Search language..." />
+              <CommandEmpty>No language found.</CommandEmpty>
+              <CommandGroup>
+                {languages.map((language) => (
+                  <CommandItem
+                    value={language.label}
+                    key={language.value}
+                    onSelect={() => form.setValue("language", language.value)}
+                  >
+                    <div
                       key={language.value}
-                      onSelect={() => form.setValue("language", language.value)}
+                      className="flex items-center cursor-pointer"
+                      onClick={() => form.setValue("language", language.value)}
                     >
-                      <div
-                        key={language.value}
-                        className="flex items-center cursor-pointer"
-                        onClick={() =>
-                          form.setValue("language", language.value)
-                        }
-                      >
-                        <CheckIcon
-                          className={`mr-2 h-4 w-4 ${
-                            language.value === form.getValues("language")
-                              ? "opacity-100"
-                              : "opacity-0"
-                          }`}
-                        />
-                        {language.label}
-                      </div>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </Command>
-            </PopoverContent>
-          </Popover>
-        </div>
+                      <CheckIcon
+                        className={`mr-2 h-4 w-4 ${
+                          language.value === form.getValues("language")
+                            ? "opacity-100"
+                            : "opacity-0"
+                        }`}
+                      />
+                      {language.label}
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
 
-        <Button type="submit" disabled={loadingUpdateProfile}>
-          Update Profile
-        </Button>
-      </FormUserMaster>
-    </>
+      <Button type="submit" disabled={loadingUpdateProfile}>
+        Update Profile
+      </Button>
+    </FormUserMaster>
   );
 }
