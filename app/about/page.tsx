@@ -37,7 +37,12 @@ export default function AboutPage() {
   return (
     <div className="flex">
       <Sidebar activeSection={activeSection} />
-      <main className="h-20 items-center mt-20 mx-10 xl:mx-64">
+      <main
+        className="h-20 items-center mt-20 mx-10 xl:mx-64"
+        style={{
+          transition: "margin 0.3s ease-in-out",
+        }}
+      >
         <section>
           <div id="intro">
             <PageIntro />

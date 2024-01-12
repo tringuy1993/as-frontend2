@@ -156,6 +156,23 @@ export const Icons = {
     //   />
     // </svg>
   ),
+  musicPlay: (props: IconProps) => (
+    <svg viewBox="0 0 120.88 120.88" {...props}>
+      {/* SVG content here, make sure the fill and stroke are set to 'currentColor' */}
+      <g id="Layer_1-2" fill="none" stroke="currentColor">
+        <g>
+          <g id="Ellipse_7-2">
+            <circle cx="60.44" cy="60.44" r="60.44" />
+            <circle cx="60.44" cy="60.44" r="59.9" />
+          </g>
+          <path
+            id="Polygon_1"
+            d="M80.95,60.44l-32.38,17.27V43.17l32.38,17.27Z"
+          />
+        </g>
+      </g>
+    </svg>
+  ),
   twitter: (props: IconProps) => (
     <svg
       {...props}

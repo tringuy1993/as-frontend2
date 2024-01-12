@@ -54,7 +54,9 @@ export function NavMenus() {
                 legacyBehavior
                 passHref
               >
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  className={`bg-transparent ${navigationMenuTriggerStyle()}`}
+                >
                   {component.title}
                 </NavigationMenuLink>
               </Link>
