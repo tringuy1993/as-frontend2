@@ -8,13 +8,14 @@ const axiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-const axiosFetcher = async (url, params = {}) => {
+const axiosFetcher = async (url, params = {}, options = {}) => {
   //getIdToken() to ensure that the token is always updated.
   const token = await Auth.currentUser?.getIdToken();
   try {
     const response = await axiosInstance.get(url, {
       params,
       headers: token ? { Authorization: `Bearer ${token}` } : {},
+      ...options,
     });
     return response.data;
   } catch (error) {
@@ -25,7 +26,7 @@ const axiosFetcher = async (url, params = {}) => {
 function useCustomSWR(url, params = {}, swrOptions = {}) {
   const { data, error, ...rest } = useSWR(
     [url, params],
-    () => axiosFetcher(url, params),
+    () => axiosFetcher(url, params, swrOptions),
     swrOptions,
   );
 

@@ -50,7 +50,12 @@ export default function PageOptions() {
   };
 
   return (
-    <div className="flex flex-col items-center mx-2.5">
+    <div
+      style={{
+        transition: "margin 0.3s ease-in-out",
+      }}
+      className="flex flex-col items-center mx-2.5"
+    >
       <header className="space-y-4 text-center">
         <DateRangePicker
           initialDateFrom={dateRange.from}
