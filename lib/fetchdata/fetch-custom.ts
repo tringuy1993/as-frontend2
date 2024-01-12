@@ -1,7 +1,7 @@
+import { Auth } from "@/app/authentication/firebase1";
 import useSWR from "swr";
 import axios from "axios";
 import { BASE_URL } from "./apiURLs";
-import { Auth } from "@/app/authentication/firebase1";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

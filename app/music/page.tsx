@@ -1,13 +1,15 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useCallback, useState } from "react";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { GenreImages } from "./GenreImages";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import GenreSongs, { ClientSongData, genreType } from "./[genre]/GenreSongs";
+import GenreSongs, {
+  type SongData,
+  type genreType,
+} from "./[genre]/GenreSongs";
 import MusicQueue from "./MusicQueue";
 import GenreButtons from "./GenreButtons";
 
-import Image from "next/image";
 import { buttonUrlsImages } from "./api/MusicData";
 
 const INITIAL = {
@@ -19,22 +21,29 @@ const INITIAL = {
 
 export default function PageMusic() {
   const [genre, setGenre] = useState<genreType>({ genre: "1950" });
+  const [selectedSong, setSelectedSong] = useState<SongData>(INITIAL);
+  const handleSelectedSongClick = useCallback((songObj: SongData) => {
+    const { song, index, artist, genre } = songObj;
+    setSelectedSong({
+      title: song,
+      song_number: index,
+      artist: artist,
+      genre: genre,
+    });
+  }, []);
 
-  const [selectedSong, setSelectedSong] = useState<ClientSongData>(INITIAL);
-
-  const handleUpdateGenre = (newGenre: genreType) => {
-    setGenre(newGenre);
-
-    //Remove Song from MusicQueue playlist
+  const handleUpdateGenreClick = useCallback((newGenre: string) => {
+    const musicPath = `${newGenre.replace("/MusicGame/", "")}`;
+    setGenre({ genre: musicPath });
     setSelectedSong({});
-  };
+  }, []);
 
-  const filteredImages = genre.genre
-    ? buttonUrlsImages.filter((item) => item.url.includes(genre.genre))
-    : null; // Fall back to default images if no genre is selected
+  const filteredImages = buttonUrlsImages.filter((item) =>
+    item.url.includes(genre?.genre),
+  );
 
   const img = filteredImages[0].image;
-  console.log(img);
+
   return (
     <div
       style={{
@@ -54,7 +63,7 @@ export default function PageMusic() {
       <div className="flex gap-2 m-2 bg-transparent">
         <section className="grow-0 flex flex-col justify-center z-[1] text-center">
           Genre
-          <GenreButtons handleUpdateGenre={handleUpdateGenre} />
+          <GenreButtons handleUpdateGenreClick={handleUpdateGenreClick} />
         </section>
         <section className="grow-0 z-[1]">
           <Card className="flex flex-col border-transparent bg-transparent">
@@ -67,8 +76,8 @@ export default function PageMusic() {
               >
                 <div className="p-4 space-y-1">
                   <GenreSongs
-                    params={genre}
-                    setSelectedSong={setSelectedSong}
+                    genre={genre}
+                    handleSelectedSongClick={handleSelectedSongClick}
                   />
                 </div>
               </ScrollArea>

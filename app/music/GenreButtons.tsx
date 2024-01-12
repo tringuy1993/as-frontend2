@@ -1,11 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { buttonUrls } from "./api/MusicData";
 
-export default function GenreButtons({ handleUpdateGenre }) {
-  const handleGenreClick = (genreText: string): void => {
-    const musicPath = `${genreText.replace("/MusicGame/", "")}`;
-    handleUpdateGenre({ genre: musicPath });
-  };
+export default function GenreButtons({ handleUpdateGenreClick }) {
   const urlGenreButtons = buttonUrls.map((buttonText, index) => {
     const isDisabled = buttonText === "/MusicGame/TV";
     // || buttonText === "/MusicGame/Films";
@@ -19,7 +15,7 @@ export default function GenreButtons({ handleUpdateGenre }) {
         key={index}
         disabled={isDisabled}
         className=""
-        onClick={() => handleGenreClick(buttonText)}
+        onClick={() => handleUpdateGenreClick(buttonText)}
       >
         {buttonText.replace("/MusicGame/", "")}
       </Button>

@@ -1,9 +1,8 @@
-// useFetchSong.js
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL, SONGS_URL } from "@/lib/fetchdata/apiURLs";
-import { ClientSongData } from "./[genre]/GenreSongs";
 import { Playlist } from "@/components/Music/audioplayer/types";
+import { type SongData } from "./[genre]/GenreSongs";
 
 const fetchMusicData = async ({ url, params }) => {
   try {
@@ -15,7 +14,7 @@ const fetchMusicData = async ({ url, params }) => {
   }
 };
 
-const useFetchSong = (fetchParams: ClientSongData) => {
+const useFetchSong = (fetchParams: SongData) => {
   const [playlist, setPlaylist] = useState<Playlist>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
