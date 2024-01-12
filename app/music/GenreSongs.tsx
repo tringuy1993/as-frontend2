@@ -20,24 +20,31 @@ export type SongData = {
   genre: string;
 };
 
-interface GenreSongsProps {
+interface GenreSongsProps extends React.HTMLAttributes<HTMLDivElement> {
   genre: genreType; // Adjust based on actual structure
   handleSelectedSongClick: (selection: SongData) => void;
 }
 
 //https://medium.com/@adityakrshnn/adding-audio-visualizers-to-your-website-in-5-minutes-23985d2b1245
 //https://codepen.io/adityakrshnn/pen/abQvNBp
-const GenreSongs = ({ genre, handleSelectedSongClick }: GenreSongsProps) => {
+const GenreSongs = ({
+  genre,
+  handleSelectedSongClick,
+  ...props
+}: GenreSongsProps) => {
   const { data } = useCustomSWR(ANSWER_URL, genre);
   const songButtons = data?.map((song: SongData) => {
     // const cardClass = isSelected ? "bg-primary" : ""; // Add a class if selected
+    const cardClassName = `hover:bg-secondary bg-transparent cursor-pointer ${
+      props.className || ""
+    }`;
     return (
       <div key={song.index}>
         <Card
           onClick={() =>
             handleSelectedSongClick({ ...song, genre: genre.genre })
           }
-          className={`hover:bg-secondary bg-transparent cursor-pointer`}
+          className={cardClassName}
         >
           <CardHeader>
             <CardTitle>{song.song}</CardTitle>

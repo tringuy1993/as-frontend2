@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL, SONGS_URL } from "@/lib/fetchdata/apiURLs";
 import { Playlist } from "@/components/Music/audioplayer/types";
-import { type SongData } from "./[genre]/GenreSongs";
+import { type SongData } from "./GenreSongs";
 
 const fetchMusicData = async ({ url, params }) => {
   try {
