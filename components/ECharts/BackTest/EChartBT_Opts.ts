@@ -6,21 +6,18 @@ import {
   createXMarkLineData,
 } from "../UtilECharts";
 
-// import { formatNumbers } from "../UtilECharts";
-
 function findClosestIndexBT(list, target) {
   return list.reduce(
     (min, curr, index) => {
       const diff = Math.abs(curr.strike - target);
       return diff < min.diff ? { index, diff } : min;
     },
-    { index: -1, diff: Infinity }
+    { index: -1, diff: Infinity },
   ).index;
 }
 export function ECOpts_Theo_BT(chartData, greek) {
   // Setting dimensions and get 'dataset' for Echarts
   const SGdimensions = ["spot_price", `theo_gamma`];
-  // const dataset = datasets(chartData, [], SGdimensions, []);
   const dataset = {
     dimensions: SGdimensions,
     source: chartData,
@@ -28,7 +25,6 @@ export function ECOpts_Theo_BT(chartData, greek) {
   const legends = ["$Call", "$Put"];
   const colors = ["#e01f54", "#0098d9"];
   // Creating Series that an array of length 4 (put, call, totalgamma, theogamma)
-
   let series = [
     {
       datasetIndex: 0,
@@ -111,7 +107,7 @@ export function ECOpts_BT(chartData, greek) {
     price_name: chartData[0]["active_underlying_price"],
     index: findClosestIndexBT(
       chartData,
-      chartData[0]["active_underlying_price"]
+      chartData[0]["active_underlying_price"],
     ),
   };
 
@@ -155,8 +151,8 @@ export function ECOpts_BT(chartData, greek) {
   const SumTotalGEX = formatNumbers(
     chartData.reduce(
       (acc, option) => acc + option[`total_${greek}_notion_expo`],
-      0
-    )
+      0,
+    ),
   );
   const option = {
     title: [

@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 });
 
 const axiosFetcher = async (url, params = {}, options = {}) => {
-  //getIdToken() to ensure that the token is always updated.
+  // getIdToken() to ensure that the token is always updated.
   const token = await Auth.currentUser?.getIdToken();
   try {
     const response = await axiosInstance.get(url, {

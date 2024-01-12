@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useCallback, useState } from "react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { GenreImages } from "./GenreImages";

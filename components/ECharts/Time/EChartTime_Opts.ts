@@ -1,12 +1,10 @@
-// import { SecondToDate, formatNumbers } from "./UtilECharts";
-
 import { SecondToDate, formatNumbers } from "../UtilECharts";
 
 export const transformArray = (
   chartData,
   strikePrice,
   expDateStr,
-  columnvalue
+  columnvalue,
 ) => {
   const result = [];
 

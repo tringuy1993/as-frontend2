@@ -1,4 +1,3 @@
-// "use client";
 import { IntroImages } from "./Intro-Images";
 
 export function PageIntro() {

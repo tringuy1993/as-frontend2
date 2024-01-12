@@ -12,7 +12,40 @@
     "react/jsx-filename-extension": [
       1,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
     ]
+  },
+  "overrides": [
+    {
+      "files": ["@/components/ui/**/*.{js, jsx, ts, tsx}"],
+      "rules": {
+        "prettier/prettier": "off",
+        "react/prop-types": "off",
+        "react/jsx-props-no-spreading": "off",
+        "import/order": "off",
+        "no-console": "off",
+        "react/jsx-no-bind": "off",
+        "prefer-template": "off"
+      }
+    }
+  ],
+  "settings": {
+    "tailwindcss": {
+      "callees": ["cn", "cva"],
+      "config": "tailwind.config.cjs"
+    },
+    "next": {
+      "rootDir": ["apps/*/"]
+    }
   },
   "parserOptions": {
     "ecmaVersion": 2018,

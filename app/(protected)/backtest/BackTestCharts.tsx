@@ -1,7 +1,6 @@
 import EChartBT_Theo from "@/components/ECharts/BackTest/EChartBT_Theo";
 import { useBTDatePickerStore, useBTTimePickerStore } from "@/store";
 import { format } from "date-fns";
-// import { Monitor } from "./Monitor";
 
 export const BackTestCharts = () => {
   const { BackTestDate } = useBTDatePickerStore();
