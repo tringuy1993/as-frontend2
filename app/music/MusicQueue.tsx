@@ -1,5 +1,4 @@
 import { type SongData } from "./[genre]/GenreSongs";
-
 import AudioPlayer from "@/components/Music/audioplayer";
 import { useFetchSong } from "./hooks";
 import MainLoading from "../loading";

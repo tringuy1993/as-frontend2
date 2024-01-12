@@ -5,10 +5,8 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/Theme-Provider";
 import { SiteHeader } from "@/components/site-header";
 import { AuthProvider } from "./authentication/client-auth-provider";
-// import { FBAuthProvider } from "./authentication/FBAuthContext";
 
 // const inter = Inter({ subsets: ['latin'] })
-
 export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
