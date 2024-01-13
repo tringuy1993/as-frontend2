@@ -11,7 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { ToS_Theo_Chart } from "./ToS_Theo_Chart";
 
-export function formatDate(dateobj: Date): string {
+function formatDate(dateobj: Date): string {
   return format(dateobj, "yyyy-MM-dd");
 }
 

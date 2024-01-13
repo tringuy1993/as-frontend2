@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { SelectTicker } from "@/components/selection/selection-ticker";
 import EChartTime from "@/components/ECharts/Time/EChartTime";
 
-export function formatDate(dateobj: Date): string {
+const formatDate = (dateobj: Date): string => {
   return format(dateobj, "yyyy-MM-dd");
 }
 
